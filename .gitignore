@@ -18,3 +18,4 @@ not_tracked_dir/
 data/
 output_finetune/
 output_finetune_single_gpu/
+test_results/

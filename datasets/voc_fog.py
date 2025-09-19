@@ -111,14 +111,14 @@ def build(image_set, args):
     if image_set == 'train':
         # --- 训练阶段的路径 ---
         base_dir = root / 'train'
-        img_folder = base_dir / "VOC2007-FOG"  # 使用退化的训练图片
+        img_folder = base_dir / "SnowyImages"  # 使用退化的训练图片  #todo
         ann_folder = base_dir / "Annotations"
         # 假设 ImageSets 文件在 train 文件夹内
         image_set_file = base_dir / 'ImageSets' / 'Main' / 'train.txt'
     elif image_set == 'val':
         # --- 验证/测试阶段的路径 ---
         base_dir = root / 'test'
-        img_folder = base_dir / "VOCtest-FOG" # 使用有雾的测试图片
+        img_folder = base_dir / "SnowyImages" # 使用有雨的测试图片  #todo
         ann_folder = base_dir / "Annotations"
         # 假设 ImageSets 文件在 test 文件夹内, 并且文件名是 val.txt
         image_set_file = base_dir / 'ImageSets' / 'Main' / 'val.txt'
