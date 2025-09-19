@@ -25,7 +25,7 @@ class FoggyDrivingVOCDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         img_id = self.ids[idx]
-        img_path = self.img_folder / f"{img_id}.jpg" # 假设图片是.jpg格式
+        img_path = self.img_folder / f"{img_id}.png" # 假设图片是.jpg格式
         ann_path = self.ann_folder / f"{img_id}.xml"
 
         img = Image.open(img_path).convert("RGB")

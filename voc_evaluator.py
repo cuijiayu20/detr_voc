@@ -58,8 +58,25 @@ def evaluate_voc(model, data_loader, device, output_dir, epoch, args):
     print("Generating ground truth files...")
     voc_root = Path(args.voc_path)
     # --- 关键修改：只为包含目标类别的图片生成 GT 文件 ---
+
+    ann_path_with_test = voc_root / "test" / "Annotations"
+    ann_path_without_test = voc_root / "Annotations"
+    if ann_path_with_test.is_dir():
+        ann_folder = ann_path_with_test
+        print(f"找到 Annotations 文件夹于: {ann_folder}")
+    elif ann_path_without_test.is_dir():
+        ann_folder = ann_path_without_test
+        print(f"找到 Annotations 文件夹于: {ann_folder}")
+    else:
+        # 如果两个路径都找不到，则报错
+        raise FileNotFoundError(f"在 {ann_path_with_test} 或 {ann_path_without_test} 都找不到 Annotations 文件夹")
+
+
     for image_name in tqdm(image_ids):
-        ann_file_path = voc_root / "test" / "Annotations" / f"{image_name}.xml"
+        ann_file_path = ann_folder / f"{image_name}.xml"
+        if not ann_file_path.exists():
+            print(f"警告: 标注文件不存在，已跳过: {ann_file_path}")
+            continue
 
         objects_to_write = []
         root = ET.parse(ann_file_path).getroot()

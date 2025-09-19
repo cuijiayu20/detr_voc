@@ -9,6 +9,8 @@ from datasets import build_dataset
 from voc_evaluator import evaluate_voc
 import util.misc as utils
 
+# test.py - Corrected get_args_parser function
+
 def get_args_parser():
     parser = argparse.ArgumentParser('Set transformer detector', add_help=False)
     # --- 模型参数 ---
@@ -23,11 +25,27 @@ def get_args_parser():
     parser.add_argument('--num_queries', default=100, type=int)
     parser.add_argument('--pre_norm', action='store_true')
     parser.add_argument('--masks', action='store_true')
-    parser.add_argument('--aux_loss', action='store_true') # 确保这个参数存在
+    parser.add_argument('--aux_loss', action='store_true')
+
+    # * Matcher
+    parser.add_argument('--set_cost_class', default=1, type=float,
+                        help="Class coefficient in the matching cost")
+    parser.add_argument('--set_cost_bbox', default=5, type=float,
+                        help="L1 box coefficient in the matching cost")
+    parser.add_argument('--set_cost_giou', default=2, type=float,
+                        help="giou box coefficient in the matching cost")
+    # * Loss coefficients
+    parser.add_argument('--mask_loss_coef', default=1, type=float)
+    parser.add_argument('--dice_loss_coef', default=1, type=float)
+    parser.add_argument('--bbox_loss_coef', default=5, type=float)
+    parser.add_argument('--giou_loss_coef', default=2, type=float)
+    parser.add_argument('--eos_coef', default=0.1, type=float,
+                        help="Relative classification weight of the no-object class")
+
 
     # --- 数据集参数 ---
     parser.add_argument('--dataset_file', required=True, type=str,
-                        choices=['voc_fog', 'rtts_test', 'foggy_driving_voc'],
+                        choices=['voc_fog', 'rtts_test', 'foggy_driving_voc', 'voc_fog_rainy', 'voc_fog_snowy'],
                         help='Dataset to use for testing.')
     parser.add_argument('--voc_path', required=True, type=str,
                         help='Path to the root of the dataset.')
@@ -46,7 +64,6 @@ def get_args_parser():
     parser.add_argument('--dilation', action='store_true') # for build_model
 
     return parser
-
 def main(args):
     device = torch.device(args.device)
 

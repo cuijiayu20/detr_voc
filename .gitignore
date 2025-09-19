@@ -17,3 +17,4 @@ not_tracked_dir/
 .vscode
 data/
 output_finetune/
+output_finetune_single_gpu/

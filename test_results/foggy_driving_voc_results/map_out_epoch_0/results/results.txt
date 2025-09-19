@@ -1,0 +1,24 @@
+# AP and precision/recall per class
+
+
+# Class: bicycle
+0.00% = bicycle AP 
+
+
+# Class: bus
+0.00% = bus AP 
+
+
+# Class: car
+0.03% = car AP 
+
+
+# Class: motorcycle
+0.00% = motorcycle AP 
+
+
+# Class: person
+0.01% = person AP 
+
+
+mAP = 0.01%
